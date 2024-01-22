@@ -1,16 +1,27 @@
-# This is a sample Python script.
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def browser_function():
+    chr_options = Options()
+    chr_options.add_experimental_option("detach", True)
+    driver = webdriver.Chrome(options=chr_options)
+    driver.get("https://jqueryui.com/resources/demos/progressbar/download.html")
+    driver.implicitly_wait(30)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    my_element = driver.find_element("id","downloadButton")
+    my_element.click()
 
+    progress_element = driver.find_element("class name", "progress-label")
+    WebDriverWait(driver,30).until(
+        EC.text_to_be_present_in_element(
+            (By.CLASS_NAME,"progress-label"),
+            "Complete!")
+    )
+    if (progress_element.text == "Complete!"):
+        print("Test Passed")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+browser_function()
