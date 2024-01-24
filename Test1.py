@@ -11,7 +11,6 @@ def browser_function():
     driver.get("https://jqueryui.com/resources/demos/progressbar/download.html")
     driver.implicitly_wait(30)
 
-
     my_element = driver.find_element("id","downloadButton")
     my_element.click()
 
